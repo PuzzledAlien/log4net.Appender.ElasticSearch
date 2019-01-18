@@ -55,7 +55,10 @@ namespace log4net.Appender.ElasticSearch
 
         public string IndexName
         {
-            set { _indexName = $"{value}-{DateTime.Now.ToString(DatePostfixFormat)}"; }
+            set
+            {
+                _indexName = string.IsNullOrEmpty(DatePostfixFormat) ? value : $"{value}-{DateTime.Now.ToString(DatePostfixFormat)}";
+            }
             get { return _indexName; }
         }
 
