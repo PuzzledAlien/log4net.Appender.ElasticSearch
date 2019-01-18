@@ -82,7 +82,7 @@ namespace log4net.Appender.ElasticSearch
 
             Servers = new ServerDataCollection();
             ElasticSearchTimeout = 10000;
-            DatePostfixFormat = "yyyy.MM.dd";
+            //DatePostfixFormat = "yyyy.MM.dd";
             IndexName = $"LogEvent-{DatePostfixFormat}";
             IndexType = "LogEvent";
             IndexAsync = true;
