@@ -1,55 +1,26 @@
-log4net.Appender.ElasticSearch
+log4net.ElasticSearchAppender
 =====================
 
-**The project is hard forked from **[urielha/log4stash](https://github.com/urielha/log4stash)**. We needed to target netstandard2.0 explicitly. Furthermore, we removed a lot of features which were not needed and added build scripts using [Nyx](https://github.com/Elders/Nyx).**
+**The project is hard forked from **[log4net.Appender.ElasticSearch](https://github.com/Elders/log4net.Appender.ElasticSearch)**. 
 
-log4net.Appender.ElasticSearch is a [log4net](http://logging.apache.org/log4net/) appender to log messages to the [ElasticSearch](http://www.elasticsearch.org) document database. ElasticSearch offers robust full-text search engine and analyzation so that errors and messages can be indexed quickly and searched easily.
-
-The origin of log4net.Appender.ElasticSearch is [@jptoto](https://github.com/jptoto)'s [log4net.ElasticSearch](https://github.com/jptoto/log4net.ElasticSearch) repository and [@urielha](https://github.com/uriehla)'s [log4stash](https://github.com/urielha/log4stash).
+log4net.ElasticSearchAppender is a [log4net](http://logging.apache.org/log4net/) appender to log messages to the [ElasticSearch](http://www.elasticsearch.org) document database. 
 
 ### Features:
 * **Targets NetStandard 2.0**
 * Easy installation and setup via [Nuget](https://www.nuget.org/packages/log4net.Appender.ElasticSearch/)
 * Ability to analyze the log event before sending it to elasticsearch using built-in filters and custom filters similar to [logstash](http://logstash.net/docs/1.4.2/).
 
-
-### Filters:
-* [**Add**][docs-filters-add] - add new key and value to the event.
-* [**Remove**][docs-filters-remove] - remove key from the event.
-* [**Rename**][docs-filters-rename] - rename key to another name.
-* **Kv** - analyze value (default is to analyze the 'Message' value) and export key-value pairs using regex (similar to logstash's kv filter).
-* **Grok** - analyze value (default is 'Message') using custom regex and saved patterns (similar to logstash's grok filter).
-* **ConvertToArray** - split raw string to an array by given seperators. 
-* **Json** - convert json string to an object (so it will be parsed as object in elasticsearch).
-* **Convert** - Available convertors: `ToString`, `ToLower`, `ToUpper`, `ToInt` and `ToArray`. See [config example][config-example] for more information. 
-* **Xml** - Parse xml into an object.
-
-#### Custom filter:
-To add your own filters you just need to implement the interface IElasticAppenderFilter on your assembly and configure it on the log4net configuration file.
-
-### Issues:
-I do my best to reply to issues or questions ASAP. Please use the issues page to submit questions or errors.
-
-### Configuration Examples:
-
-Almost all the parameters are optional, to see the default values check the [constructor](https://github.com/Elders/log4net.Appender.ElasticSearch/blob/master/src/Elders.log4net.Appender.ElasticSearch/ElasticSearchAppender.cs#L81) of the appender and the constructor of every filter. 
-You can also set any public property in the appender/filter which didn't appear in the example.
-
 ##### Simple configuration:
 ```xml
-<appender name="ElasticSearchAppender" type="log4net.Appender.ElasticSearch.ElasticSearchAppender, log4net.Appender.ElasticSearch">
+<appender name="ElasticSearchAppender" type="log4net.ElasticSearchAppender.ElasticSearchAppender, log4net.ElasticSearchAppender">
     <Server>localhost</Server>
     <Port>9200</Port>
-    <ElasticFilters>
-      <!-- example of using filter with default parameters -->
-      <kv /> 
-    </ElasticFilters>
 </appender>
 ```
 
 ##### (Almost) Full configuration:
 ```xml
-<appender name="ElasticSearchAppender" type="log4net.Appender.ElasticSearch.ElasticSearchAppender, log4net.Appender.ElasticSearch">
+<appender name="ElasticSearchAppender" type="log4net.ElasticSearchAppender.ElasticSearchAppender, log4net.ElasticSearchAppender">
     <Server>localhost</Server>
     <Port>9200</Port>
     <!-- optional: in case elasticsearch is located behind a reverse proxy the URL is like http://Server:Port/Path, default = empty string -->
@@ -179,19 +150,3 @@ You can also set any public property in the appender/filter which didn't appear 
     </ElasticFilters>
 </appender>
 ```
-
-Note that the filters got called by the order they appeared in the config (as shown in the example).
-
-### Templates:
-To get to know the [ElasticSearch templates](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html) follow the link.
-
-You can follow the link to read more about [dynamic mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/default-mapping.html).
-
-### License:
-[MIT License](https://github.com/urielha/log4stash/blob/master/LICENSE)
-
-### Thanks:
-Thanks to [@jptoto](https://github.com/jptoto) for the idea and the first working ElasticAppender.
-Many thanks to [@mpdreamz](https://github.com/Mpdreamz) and the team for their great work on the NEST library!
-The inspiration to the filters and style had taken from [elasticsearch/logstash](https://github.com/elasticsearch/logstash) project.
-Thanks to [Uriehla](https://github.com/urielha/log4stash/) for the integration of Logstash and Log4net appender. 
