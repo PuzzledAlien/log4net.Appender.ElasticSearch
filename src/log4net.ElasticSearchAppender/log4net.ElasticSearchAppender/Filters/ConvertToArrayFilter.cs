@@ -1,0 +1,61 @@
+﻿using log4net.ElasticSearchAppender.Extensions;
+using log4net.ElasticSearchAppender.SmartFormatters;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using log4net.ElasticSearchAppender.ElasticClient;
+
+namespace log4net.ElasticSearchAppender.Filters
+{
+    public class ConvertToArrayFilter : IElasticAppenderFilter
+    {
+        private Regex _seperateRegex;
+        private LogEventSmartFormatter _sourceKey;
+
+        [PropertyNotEmpty]
+        public string SourceKey
+        {
+            get { return _sourceKey; }
+            set { _sourceKey = value; }
+        }
+
+        [PropertyNotEmpty]
+        public string Seperators
+        {
+            get { return _seperateRegex != null ? _seperateRegex.ToString() : string.Empty; }
+            set { _seperateRegex = new Regex("[" + value + "]+", RegexOptions.Compiled | RegexOptions.Multiline); }
+        }
+
+        public ConvertToArrayFilter()
+        {
+            SourceKey = "Message";
+            Seperators = ", ";
+        }
+
+        public void PrepareConfiguration(IElasticsearchClient client)
+        {
+        }
+
+        public void PrepareEvent(Dictionary<string, object> logEvent)
+        {
+            string formattedKey = _sourceKey.Format(logEvent);
+            string value;
+            if (!logEvent.TryGetStringValue(formattedKey, out value))
+            {
+                return;
+            }
+
+            logEvent[formattedKey] = ValueToArray(value);
+        }
+
+        private List<string> ValueToArray(string value)
+        {
+            return _seperateRegex.Split(value).Where(s => !string.IsNullOrEmpty(s)).ToList();
+        }
+
+        public object ValueToArrayObject(object value)
+        {
+            return ValueToArray((string)value);
+        }
+    }
+}
