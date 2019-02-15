@@ -1,4 +1,4 @@
-log4net.ElasticSearchAppender
+log4net.ElasticSearchAppender.DotNetCore
 =====================
 
 **The project is hard forked from** [log4net.Appender.ElasticSearch](https://github.com/Elders/log4net.Appender.ElasticSearch). 
