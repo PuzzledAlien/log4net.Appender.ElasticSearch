@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\log4net.ElasticSearchAppender\log4net.ElasticSearchAppender\log4net.ElasticSearchAppender.csproj" />
+    <ProjectReference Include="..\..\src\log4net.ElasticSearchAppender.DotNetCore\log4net.ElasticSearchAppender.DotNetCore.csproj" />
   </ItemGroup>
 
 </Project>
