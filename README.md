@@ -12,7 +12,7 @@ log4net.ElasticSearchAppender is a [log4net](http://logging.apache.org/log4net/)
 
 ##### Simple configuration:
 ```xml
-<appender name="ElasticSearchAppender" type="log4net.ElasticSearchAppender.ElasticSearchAppender, log4net.ElasticSearchAppender">
+<appender name="ElasticSearchAppender" type="log4net.ElasticSearchAppender.DotNetCore.ElasticSearchAppender, log4net.ElasticSearchAppender.DotNetCore">
     <Server>localhost</Server>
     <Port>9200</Port>
 </appender>
@@ -20,7 +20,7 @@ log4net.ElasticSearchAppender is a [log4net](http://logging.apache.org/log4net/)
 
 ##### (Almost) Full configuration:
 ```xml
-<appender name="ElasticSearchAppender" type="log4net.ElasticSearchAppender.ElasticSearchAppender, log4net.ElasticSearchAppender">
+<appender name="ElasticSearchAppender" type="log4net.ElasticSearchAppender.DotNetCore.ElasticSearchAppender, log4net.ElasticSearchAppender.DotNetCore">
     <Server>localhost</Server>
     <Port>9200</Port>
     <!-- optional: in case elasticsearch is located behind a reverse proxy the URL is like http://Server:Port/Path, default = empty string -->
