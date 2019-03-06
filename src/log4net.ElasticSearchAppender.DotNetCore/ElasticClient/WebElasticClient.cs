@@ -6,6 +6,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using log4net.ElasticSearchAppender.DotNetCore.Authentication;
 using log4net.ElasticSearchAppender.DotNetCore.Configuration;
 using log4net.Util;
 using Newtonsoft.Json;
@@ -35,15 +36,16 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
         private readonly IDictionary<string, RestClient> _restClientByHost;
 
         public WebElasticClient(ServerDataCollection servers, int timeout)
-            : this(servers, timeout, false, false)
+            : this(servers, timeout, false, false, new AuthenticationMethodChooser())
         {
         }
 
         public WebElasticClient(ServerDataCollection servers,
                                 int timeout,
                                 bool ssl,
-                                bool allowSelfSignedServerCert)
-            : base(servers, timeout, ssl, allowSelfSignedServerCert)
+                                bool allowSelfSignedServerCert,
+            AuthenticationMethodChooser authenticationMethod)
+            : base(servers, timeout, ssl, allowSelfSignedServerCert, authenticationMethod)
         {
             if (Ssl && AllowSelfSignedServerCert)
             {
@@ -54,6 +56,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
                 serverData => new RestClient(GetServerUrl(serverData))
                 {
                     Timeout = timeout,
+                    Authenticator = authenticationMethod
                 });
         }
 

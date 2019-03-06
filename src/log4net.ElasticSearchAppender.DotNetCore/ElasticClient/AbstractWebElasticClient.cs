@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using log4net.ElasticSearchAppender.DotNetCore.Authentication;
 using log4net.ElasticSearchAppender.DotNetCore.Configuration;
 
 namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
@@ -12,12 +13,14 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
         public int Timeout { get; private set; }
         public bool Ssl { get; private set; }
         public bool AllowSelfSignedServerCert { get; private set; }
+        public AuthenticationMethodChooser AuthenticationMethod { get; set; }
         public string Url { get { return GetServerUrl(); } }
 
         protected AbstractWebElasticClient(ServerDataCollection servers,
             int timeout,
             bool ssl,
-            bool allowSelfSignedServerCert)
+            bool allowSelfSignedServerCert,
+            AuthenticationMethodChooser authenticationMethod)
         {
             Servers = servers;
             Timeout = timeout;
@@ -26,6 +29,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
             // SSL related properties
             Ssl = ssl;
             AllowSelfSignedServerCert = allowSelfSignedServerCert;
+            AuthenticationMethod = authenticationMethod;
         }
 
         public abstract void PutTemplateRaw(string templateName, string rawBody);

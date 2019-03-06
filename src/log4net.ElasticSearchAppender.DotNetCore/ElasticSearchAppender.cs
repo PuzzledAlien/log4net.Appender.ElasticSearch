@@ -5,6 +5,7 @@ using System.Threading;
 using log4net.Appender;
 using log4net.ElasticSearchAppender.DotNetCore.Configuration;
 using log4net.Core;
+using log4net.ElasticSearchAppender.DotNetCore.Authentication;
 using log4net.ElasticSearchAppender.DotNetCore.ElasticClient;
 using log4net.ElasticSearchAppender.DotNetCore.Extensions;
 using log4net.ElasticSearchAppender.DotNetCore.LogEventFactory;
@@ -47,6 +48,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore
         public int ElasticSearchTimeout { get; set; }
         public bool Ssl { get; set; }
         public bool AllowSelfSignedServerCert { get; set; }
+        public AuthenticationMethodChooser AuthenticationMethod { get; set; }
         public bool IndexAsync { get; set; }
         public TemplateInfo Template { get; set; }
         public ElasticAppenderFilters ElasticFilters { get; set; }
@@ -95,13 +97,14 @@ namespace log4net.ElasticSearchAppender.DotNetCore
 
             AllowSelfSignedServerCert = false;
             Ssl = false;
+            AuthenticationMethod = new AuthenticationMethodChooser();
             IndexOperationParams = new IndexOperationParamsDictionary();
         }
 
         public override void ActivateOptions()
         {
             AddOptionalServer();
-            _client = new WebElasticClient(Servers, ElasticSearchTimeout, Ssl, AllowSelfSignedServerCert);
+            _client = new WebElasticClient(Servers, ElasticSearchTimeout, Ssl, AllowSelfSignedServerCert, AuthenticationMethod);
 
             LogEventFactory.Configure(this);
 
