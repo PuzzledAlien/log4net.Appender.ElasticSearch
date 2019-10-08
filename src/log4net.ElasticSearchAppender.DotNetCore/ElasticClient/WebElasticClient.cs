@@ -208,8 +208,8 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
             bool responseHasError = jsonResponse.Errors || response.StatusCode != HttpStatusCode.OK;
             if (responseHasError)
             {
-                throw new InvalidOperationException(string.Format("Some error occurred while sending request to Elasticsearch.{0}{1}",
-                        Environment.NewLine, stringResponse));
+                throw new InvalidOperationException(
+                    $"Some error occurred while sending request to Elasticsearch.{Environment.NewLine}{stringResponse}");
             }
         }
 
