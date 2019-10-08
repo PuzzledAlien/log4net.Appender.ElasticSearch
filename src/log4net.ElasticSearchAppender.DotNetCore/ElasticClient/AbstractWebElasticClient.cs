@@ -14,7 +14,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
         public bool Ssl { get; private set; }
         public bool AllowSelfSignedServerCert { get; private set; }
         public AuthenticationMethodChooser AuthenticationMethod { get; set; }
-        public string Url { get { return GetServerUrl(); } }
+        public string Url => GetServerUrl();
 
         protected AbstractWebElasticClient(ServerDataCollection servers,
             int timeout,
@@ -40,13 +40,13 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
         protected string GetServerUrl()
         {
             var serverData = Servers.GetRandomServerData();
-            var url = string.Format("{0}://{1}:{2}{3}/", Ssl ? "https" : "http", serverData.Address, serverData.Port, String.IsNullOrEmpty(serverData.Path) ? "" : serverData.Path);
+            var url = $"{(Ssl ? "https" : "http")}://{serverData.Address}:{serverData.Port}{(string.IsNullOrEmpty(serverData.Path) ? "" : serverData.Path)}/";
             return url;
         }
 
         protected string GetServerUrl(IServerData serverData)
         {
-            var url = string.Format("{0}://{1}:{2}{3}/", Ssl ? "https" : "http", serverData.Address, serverData.Port, String.IsNullOrEmpty(serverData.Path) ? "" : serverData.Path);
+            var url = $"{(Ssl ? "https" : "http")}://{serverData.Address}:{serverData.Port}{(string.IsNullOrEmpty(serverData.Path) ? "" : serverData.Path)}/";
             return url;
         }
     }
