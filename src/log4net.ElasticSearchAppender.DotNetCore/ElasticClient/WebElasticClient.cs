@@ -177,8 +177,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
             X509Chain chain,
             SslPolicyErrors sslPolicyErrors)
         {
-            var certificate2 = certificate as X509Certificate2;
-            if (certificate2 == null)
+            if (!(certificate is X509Certificate2 certificate2))
                 return false;
 
             string subjectCn = certificate2.GetNameInfo(X509NameType.DnsName, false);
