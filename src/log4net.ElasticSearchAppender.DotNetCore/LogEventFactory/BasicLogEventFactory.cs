@@ -96,8 +96,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore.LogEventFactory
                 // Exception Types require specialized serialization to prevent serialization exceptions.
                 if (SerializeObjects && loggingEvent.MessageObject != null && !(loggingEvent.MessageObject is string))
                 {
-                    var exceptionObject = loggingEvent.MessageObject as Exception;
-                    if (exceptionObject != null)
+                    if (loggingEvent.MessageObject is Exception exceptionObject)
                     {
                         resultDictionary["MessageObject"] = new SerializableException(exceptionObject);
                     }
