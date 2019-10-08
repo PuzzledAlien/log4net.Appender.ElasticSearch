@@ -68,7 +68,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore
         public string IndexType
         {
             set { _indexType = value; }
-            get { return _indexType.ToString(); }
+            get { return _indexType; }
         }
 
         public ElasticSearchAppender()
