@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
-    <Version>2.0.5</Version>
+    <TargetFrameworks>net452;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>2.0.6</Version>
     <PackageProjectUrl>https://github.com/PuzzledAlien/log4net.ElasticSearchAppender.DotNetCore</PackageProjectUrl>
     <PackageReleaseNotes>log4net.ElasticSearchAppender.DotNetCore is a log4net appender to log messages to the ElasticSearch document database.</PackageReleaseNotes>
-    <Description>新增支持net452</Description>
+    <Description>新增支持netstandard2.1</Description>
   </PropertyGroup>
 
   <ItemGroup>
