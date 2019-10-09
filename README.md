@@ -6,7 +6,7 @@ log4net.ElasticSearchAppender.DotNetCore
 log4net.ElasticSearchAppender is a [log4net](http://logging.apache.org/log4net/) appender to log messages to the [ElasticSearch](http://www.elasticsearch.org) document database. 
 
 ### Features:
-* **Targets NetStandard 2.0.3**
+* **Targets net452;netstandard2.0;netstandard2.1**
 * Easy installation and setup via [Nuget](https://www.nuget.org/packages/log4net.ElasticSearchAppender.DotNetCore/)
 * Ability to analyze the log event before sending it to elasticsearch using built-in filters and custom filters similar to [logstash](http://logstash.net/docs/1.4.2/).
 
