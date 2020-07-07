@@ -65,7 +65,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
             var url = string.Concat("_template/", templateName);
             var restRequest = new RestRequest(url, Method.PUT) { RequestFormat = DataFormat.Json };
             restRequest.AddParameter("application/json", rawBody, ParameterType.RequestBody);
-            RestClient.ExecuteAsync(restRequest, response => { });
+            RestClient.Execute(restRequest);
         }
 
         public override void IndexBulk(IEnumerable<InnerBulkOperation> bulk)
@@ -153,7 +153,7 @@ namespace log4net.ElasticSearchAppender.DotNetCore.ElasticClient
             IRestResponse response;
             try
             {
-                response = await RestClient.ExecuteTaskAsync(request.RestRequest);
+                response = await RestClient.ExecuteAsync(request.RestRequest);
             }
             catch (Exception ex)
             {
